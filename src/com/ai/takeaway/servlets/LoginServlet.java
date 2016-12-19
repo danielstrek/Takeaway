@@ -1,26 +1,88 @@
 package com.ai.takeaway.servlets;
 
 import java.io.IOException;
+import java.util.List;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import com.ai.takeaway.dao.DishDAO;
+import com.ai.takeaway.dao.OrderDAO;
+import com.ai.takeaway.dao.RestaurantDAO;
+import com.ai.takeaway.dao.UserDAO;
+import com.ai.takeaway.model.Dish;
+import com.ai.takeaway.model.Order;
+import com.ai.takeaway.model.Restaurant;
+import com.ai.takeaway.model.User;
 
 @WebServlet("/LoginServlet")
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    public LoginServlet() {
-        super();
-    }
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	private static final String USERNAME = "Adam";
+	private static final String PASS = "user";
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.sendRedirect("index.html");
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		// response.sendRedirect("index.html");
+
+		System.out.println("LoginServlet doPost()");
+		String userParam = request.getParameter("username");
+		String passParam = request.getParameter("pass");
+		if (validate(userParam, passParam)) {
+			HttpSession session = request.getSession(true);
+			session.setAttribute("username", userParam);
+			getUser(session);
+			getRestaurant(session);
+			getOrder(session);
+			getDish(session);
+			// response.sendRedirect("RestaurantServlet");
+			response.sendRedirect("index.jsp");
+		}
+		// else
 	}
+
+	private boolean validate(String username, String password) {
+		return USERNAME.equals(username) && PASS.equals(password);
+	}
+
+	private void getUser(HttpSession session) {
+		UserDAO userDAO = new UserDAO();
+		String username = session.getAttribute("username").toString();
+		User user = userDAO.read(username);
+		session.setAttribute("user", user);
+		User user1 = (User) session.getAttribute("user");
+		System.out.println(user1.getUser_lastname());
+	}
+
+	private void getRestaurant(HttpSession session) {
+		RestaurantDAO resDAO = new RestaurantDAO();
+		List<Restaurant> res = resDAO.read();
+		session.setAttribute("restaurantList", res);
+	}
+	
+
+	private void getOrder(HttpSession session) {
+		OrderDAO orderDAO = new OrderDAO();
+		List<Order> orderList = orderDAO.read();
+		session.setAttribute("orderList", orderList);
+	}
+	
+	private void getDish(HttpSession session) {
+		DishDAO dishDAO = new DishDAO();
+		List<Dish> dishList = dishDAO.read();
+		session.setAttribute("dishList", dishList);
+	}
+
+
 
 }
