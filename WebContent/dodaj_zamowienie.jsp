@@ -2,10 +2,18 @@
 	pageEncoding="UTF-8"%>
 <%@ page
 	import="com.ai.takeaway.model.User, java.util.List, com.ai.takeaway.model.Restaurant, com.ai.takeaway.model.Order, com.ai.takeaway.model.Dish"%>
+
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="author" content="">
+
 <title>Takeaway</title>
 
 <!-- Bootstrap Core CSS -->
@@ -41,7 +49,7 @@
 						class="icon-bar"></span> <span class="icon-bar"></span> <span
 						class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="index.html">Strona główna</a>
+				<a class="navbar-brand" href="index.jsp">Strona główna</a>
 			</div>
 			<!-- Top Menu Items -->
 			<ul class="nav navbar-right top-nav">
@@ -173,105 +181,22 @@
 				<div class="row">
 					<div class="col-lg-12">
 						<h1 class="page-header">
-							Blank Page <small>Subheading</small>
+							Zamów obiad <small></small>
 						</h1>
+						<form action="AddOrderServlet" , method="post">
 
-						<div>
-							<%
-								User user = (User) request.getSession().getAttribute("user");
-								if (user != null) {
-							%>
-							<tr>
-								<td><%=user.getUser_name()%></td>
-								<td><%=user.getUser_lastname()%></td>
-							</tr>
-							<%
-								}
-							%>
-						</div>
+							Wpisz nazwę z menu: <br> <input type="text" name="dish_name"><br>
+							Wpisz koszt dania z menu: <br> <input type="text"
+								name="dish_cost"><br> <input type="submit"
+								value="Dodaj zamówienie">
+						</form>
 
-						<table>
-							<h2>Lista restauracji:</h2>
-							<table style="width: 70%" border="1">
-								<tr>
-									<th>Nazwa</th>
-									<th>Link:</th>
-									<th>Opis:</th>
-								</tr>
-								<%
-									List<Restaurant> restList = (List<Restaurant>) request.getSession().getAttribute("restaurantList");
-									for (Restaurant res : restList) {
-								%>
 
-								<tr>
-									<td><%= res.getRes_name()%></td>
-									<td><%= res.getRes_menu_link()%></td>
-									<td><%= res.getRes_info() %></td>
-								</tr>
-								<%
-									}
-								%>
-							</table>
-
-													<table>
-							<h2>Realizowane zamówienia:</h2>
-							<table style="width: 70%" border="1">
-								<tr>
-									<th>ID zamównienia</th>
-									<th>ID restauracji:</th>
-									<th>ID użytkownika:</th>
-								</tr>
-								<%
-									List<Order> orderList = (List<Order>) request.getSession().getAttribute("orderList");
-									for (Order order : orderList) {
-								%>
-								<tr>
-									<td><%= order.getOrder_id()%></td>
-									<td><%= order.getOrder_res_id()%></td>
-									<td><%= order.getOrder_user_id() %></td>
-								</tr>
-								<%
-									}
-								%>
-							</table>
-							
-						
-								<h2>Lista zamówionych dań:</h2>
-							<table style="width: 70%" border="1">
-								<tr>
-									<th>Nazwa dania</th>
-								<th>Cena (zł):</th>
-									<th>Czy zapłacono?:</th>
-									<th>Wpłacona kwota:</th>
-									<th>ID zamawiającego:</th>
-									<th>ID zamówienia:</th>
-								</tr>
-								<%
-									List<Dish> dishList = (List<Dish>) request.getSession().getAttribute("dishList");
-									for (Dish dish : dishList) {
-								%>
-
-								<tr>
-									<td><%= dish.getDish_name()%></td>
-									<td><%= dish.getDish_cost()%></td>
-									<td><%= dish.getDish_paid() %></td>
-									<td><%= dish.getDish_paid_money() %></td>
-									<td><%= dish.getDish_user_id() %></td>
-									<td><%= dish.getDish_order_id() %></td>
-									
-									
-								</tr>
-								<%
-									}
-								%>
-							</table>
-							
-
-							<ol class="breadcrumb">
-								<li><i class="fa fa-dashboard"></i> <a href="index.html">Dashboard</a>
-								</li>
-								<li class="active"><i class="fa fa-file"></i> Blank Page</li>
-							</ol>
+						<ol class="breadcrumb">
+							<li><i class="fa fa-dashboard"></i> <a href="index.jsp">Dashboard</a>
+							</li>
+							<li class="active"><i class="fa fa-file"></i> Blank Page</li>
+						</ol>
 					</div>
 				</div>
 				<!-- /.row -->

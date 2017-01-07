@@ -10,6 +10,21 @@ public class Dish {
 	private int dish_user_id;
 	private int dish_order_id;
 
+	public Dish(){
+		
+	}
+	
+	public Dish(int dish_id, String dish_name, float dish_cost, String dish_paid, float dish_paid_money,
+			int dish_user_id, int dish_order_id) {
+		this.dish_id = dish_id;
+		this.dish_name = dish_name;
+		this.dish_cost = dish_cost;
+		this.dish_paid = dish_paid;
+		this.dish_paid_money = dish_paid_money;
+		this.dish_user_id = dish_user_id;
+		this.dish_order_id = dish_order_id;
+	}
+
 	public int getDish_id() {
 		return dish_id;
 	}

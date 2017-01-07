@@ -34,7 +34,7 @@ public class DishDAO {
 				resultDish.setDish_cost(resultSet.getFloat("dish_cost"));
 				resultDish.setDish_paid(resultSet.getString("dish_paid"));
 				resultDish.setDish_paid_money(resultSet.getFloat("dish_paid_money"));
-				resultDish.setDish_user_id(resultSet.getInt("dish_paid_money"));
+				resultDish.setDish_user_id(resultSet.getInt("dish_user_id"));
 
 				dishList.add(resultDish);
 			}
@@ -65,6 +65,7 @@ public class DishDAO {
 			prepStmt.setString(3, dish.getDish_paid());
 			prepStmt.setFloat(4, dish.getDish_paid_money());
 			prepStmt.setInt(5, dish.getDish_user_id());
+			//System.out.println("<<<<<<<<<<<<<<<<<," + dish.getDish_user_id()+ "s>>>>>>>>>>>>>>>>>>>>>>>>");
 			prepStmt.setInt(6, dish.getDish_order_id());
 
 			int rowsAffected = prepStmt.executeUpdate();
