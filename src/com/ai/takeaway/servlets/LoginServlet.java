@@ -23,7 +23,7 @@ import com.ai.takeaway.model.User;
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	private static final String USERNAME = "Adam";
+	private static final String USEREMAIL = "jan.nowak1@mail.com";
 	private static final String PASS = "user";
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -36,32 +36,39 @@ public class LoginServlet extends HttpServlet {
 		// response.sendRedirect("index.html");
 
 		System.out.println("LoginServlet doPost()");
-		String userParam = request.getParameter("username");
+		String userEmail = request.getParameter("email");
 		String passParam = request.getParameter("pass");
-		if (validate(userParam, passParam)) {
+		//if (validate(userEmail, passParam)) {
 			HttpSession session = request.getSession(true);
-			session.setAttribute("username", userParam);
-			getUser(session);
+			session.setAttribute("email", userEmail);
+			User user = (User) getUser(session);
+			if (user.getUser_pass().equals(request.getParameter("pass"))){
 			getRestaurant(session);
 			getOrder(session);
 			getDish(session);
 			// response.sendRedirect("RestaurantServlet");
 			response.sendRedirect("index.jsp");
+			}
+			else{
+				response.sendRedirect("login.htm");
+			}
+
 		}
 		// else
-	}
+//	}
 
 	private boolean validate(String username, String password) {
-		return USERNAME.equals(username) && PASS.equals(password);
+		return USEREMAIL.equals(username) && PASS.equals(password);
 	}
+	
+	
 
-	private void getUser(HttpSession session) {
+	private User getUser(HttpSession session) {
 		UserDAO userDAO = new UserDAO();
-		String username = session.getAttribute("username").toString();
-		User user = userDAO.read(username);
+		String userEmail = session.getAttribute("email").toString();
+		User user = userDAO.read(userEmail);
 		session.setAttribute("user", user);
-		User user1 = (User) session.getAttribute("user");
-		System.out.println(user1.getUser_lastname());
+		return user;
 	}
 
 	private void getRestaurant(HttpSession session) {
