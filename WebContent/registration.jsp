@@ -22,17 +22,22 @@
 <body>
 	<div>
 		<center>
-		<h1><font color="silver">	Podaj swoje dane:</font></h1>
+			<h1>
+				<font color="silver"> Podaj swoje dane:</font>
+			</h1>
 			<form action="RegistrationServlet" , method="post">
-		<font color="silver">Imię: </font><br> <input type="text" name="name"><br>
-		<font color="silver">Nazwisko:</font> <br> <input type="text" name="surname"><br>
-		<font color="silver">Email: </font><br> <input type="text" name="email"><br>
-		<font color="silver">Hasło: </font><br> <input type="password" name="password"><br>
-				<input type="submit" value="Zarejestruj"></font>
+				<font color="silver">Imię: </font><br> <input type="text"
+					name="name"><br> <font color="silver">Nazwisko:</font>
+				<br> <input type="text" name="surname"><br> <font
+					color="silver">Email: </font><br> <input type="text"
+					name="email"><br> <font color="silver">Hasło: </font><br>
+				<input type="password" name="password"><br> <input
+					type="submit" value="Zarejestruj">
 			</form>
-			
-			<br><br>
-			
+
+			<br>
+			<br>
+
 		</center>
 	</div>
 

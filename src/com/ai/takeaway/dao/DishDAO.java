@@ -13,8 +13,10 @@ import com.ai.takeaway.util.ConnectionProvider;
 public class DishDAO {
 
 	private final static String CREATE = "insert into  dish(dish_name, dish_cost, dish_paid,dish_paid_money, dish_user_id, dish_order_id) values(?, ?, ?, ?, ?, ?);";
-	private final static String READ = "SELECT * FROM dish;";
-	private final static String DELETE = "DELETE * from dish where dish_id = ?;";
+	private final static String READ = "SELECT * FROM dish ;";
+	private final static String READ1 = "SELECT * FROM dish where dish_user_id =?;";
+
+	private final static String DELETE = "delete from dish;";
 
 	public List<Dish> read() {
 		Connection conn = null;
@@ -46,6 +48,40 @@ public class DishDAO {
 		}
 		return null;
 	}
+	
+	public List<Dish> read(int userId) {
+		Connection conn = null;
+		PreparedStatement prepStmt = null;
+		ResultSet resultSet = null;
+		Dish resultDish = null;
+		try {
+			conn = ConnectionProvider.getConnection();
+			prepStmt = conn.prepareStatement(READ1);
+			prepStmt.setInt(1, userId);
+
+			resultSet = prepStmt.executeQuery();
+			
+			List<Dish> dishList = new ArrayList<>();
+			while (resultSet.next()) {
+				resultDish = new Dish();
+				resultDish.setDish_name(resultSet.getString("dish_name"));
+				resultDish.setDish_order_id(resultSet.getInt("dish_order_id"));
+				resultDish.setDish_cost(resultSet.getFloat("dish_cost"));
+				resultDish.setDish_paid(resultSet.getString("dish_paid"));
+				resultDish.setDish_paid_money(resultSet.getFloat("dish_paid_money"));
+				resultDish.setDish_user_id(resultSet.getInt("dish_user_id"));
+				dishList.add(resultDish);
+
+			}
+			return dishList;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			releaseResources(prepStmt, resultSet, conn);
+		}
+		return null;
+	}
+
 
 	// private final static String CREATE = "insert into dish(dish_name,
 	// dish_cost, dish_paid,dish_paid_money, dish_user_id, dish_order_id)
@@ -80,6 +116,31 @@ public class DishDAO {
 		}
 		return result;
 	}
+	
+	
+	public boolean delete() {
+		Connection conn = null;
+		PreparedStatement prepStmt = null;
+		ResultSet resultSet = null;
+		boolean result = false;
+
+		try {
+			conn = ConnectionProvider.getConnection();
+			prepStmt = conn.prepareStatement(DELETE);
+
+			int rowsAffected = prepStmt.executeUpdate();
+			if (rowsAffected > 0) {
+				result = true;
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			releaseResources(prepStmt, resultSet, conn);
+		}
+		return result;
+	}
+
 
 	private void releaseResources(PreparedStatement prepStmt, ResultSet res, Connection conn) {
 		try {

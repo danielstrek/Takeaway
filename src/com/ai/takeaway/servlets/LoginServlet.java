@@ -38,30 +38,31 @@ public class LoginServlet extends HttpServlet {
 		System.out.println("LoginServlet doPost()");
 		String userEmail = request.getParameter("email");
 		String passParam = request.getParameter("pass");
-		//if (validate(userEmail, passParam)) {
-			HttpSession session = request.getSession(true);
-			session.setAttribute("email", userEmail);
+		// if (validate(userEmail, passParam)) {
+		HttpSession session = request.getSession(true);
+		session.setAttribute("email", userEmail);
+		if (getUser(session) != null) {
 			User user = (User) getUser(session);
-			if (user.getUser_pass().equals(request.getParameter("pass"))){
-			getRestaurant(session);
-			getOrder(session);
-			getDish(session);
-			// response.sendRedirect("RestaurantServlet");
-			response.sendRedirect("index.jsp");
+			if (user.getUser_pass().equals(request.getParameter("pass"))) {
+				getRestaurant(session);
+				getOrder(session);
+				getDish(session, user);
+				// response.sendRedirect("RestaurantServlet");
+				response.sendRedirect("index.jsp");
+			} else {
+				response.sendRedirect("login.html");
 			}
-			else{
-				response.sendRedirect("login.htm");
-			}
+		} else {
+			response.sendRedirect("login.html");
 
 		}
-		// else
-//	}
+	}
+	// else
+	// }
 
 	private boolean validate(String username, String password) {
 		return USEREMAIL.equals(username) && PASS.equals(password);
 	}
-	
-	
 
 	private User getUser(HttpSession session) {
 		UserDAO userDAO = new UserDAO();
@@ -76,20 +77,28 @@ public class LoginServlet extends HttpServlet {
 		List<Restaurant> res = resDAO.read();
 		session.setAttribute("restaurantList", res);
 	}
-	
 
 	private void getOrder(HttpSession session) {
 		OrderDAO orderDAO = new OrderDAO();
 		List<Order> orderList = orderDAO.read();
 		session.setAttribute("orderList", orderList);
 	}
-	
-	private void getDish(HttpSession session) {
+
+	private void getDish(HttpSession session, User user) {
+		//User user = (User) session.getAttribute("user");
 		DishDAO dishDAO = new DishDAO();
-		List<Dish> dishList = dishDAO.read();
-		session.setAttribute("dishList", dishList);
+		if (user.getUser_role_id() == 2) {
+			System.out.println("UserRoleID == 2");
+			List<Dish> dishList = dishDAO.read();
+			session.setAttribute("dishList", dishList);
+		}else if(user.getUser_role_id() == 1){
+			List<Dish> dishList = dishDAO.read(user.getUser_id());
+			System.out.println("UserRoleID == 1");
+
+			session.setAttribute("dishList", dishList);
+
+		}
+
 	}
-
-
 
 }

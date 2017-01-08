@@ -61,6 +61,7 @@ public class UserDAO {
                 resultUser.setUser_lastname(resultSet.getString("user_lastname"));
                 resultUser.setUser_pass(resultSet.getString("user_pass"));
                 resultUser.setUser_role_id(resultSet.getInt("user_role_id"));
+                resultUser.setUser_id(resultSet.getInt("user_id"));
                 //System.out.println("user name: " + resultUser.getUser_name());
             }
         } catch (SQLException e) {

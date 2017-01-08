@@ -16,7 +16,7 @@ public class OrderDAO {
 	private final static String CREATE = "insert into order (order_res_id, order_fullcost, order_user_id) values(?,?,?);";
 	private final static String READ = "SELECT * FROM order_;";
 	private final static String READ1 = "Select * from order_ where order_user_id = ?;";
-	private final static String DELETE = "DELETE * from order_ where order_user_id = ?;";
+	private final static String DELETE = "DELETE * from order_ ;";
 
 	// private final static String UPDATE = "UPDATE user SET pass=?, WHERE
 	// user_id = ?;";
@@ -73,6 +73,29 @@ public class OrderDAO {
 		}
 		return result;
 	}
+	
+	public  boolean delete() {
+		Connection conn = null;
+		PreparedStatement prepStmt = null;
+		ResultSet resultSet = null;
+		boolean result = false;
+		
+		try {
+			conn = ConnectionProvider.getConnection();
+			prepStmt = conn.prepareStatement(CREATE);
+			int rowsAffected =  prepStmt.executeUpdate();
+			 if (rowsAffected > 0) {
+	                result = true;
+	            }
+		
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			releaseResources(prepStmt, resultSet, conn);
+		}
+		return result;
+	}
+
 
 	
 	private void releaseResources(PreparedStatement prepStmt, ResultSet res, Connection conn) {

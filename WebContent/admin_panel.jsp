@@ -1,9 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ page
+	import="com.ai.takeaway.model.User, java.util.List, com.ai.takeaway.model.Restaurant, com.ai.takeaway.model.Order, com.ai.takeaway.model.Dish"%>
+
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="author" content="">
 
 <title>Takeaway</title>
 
@@ -40,7 +49,7 @@
 						class="icon-bar"></span> <span class="icon-bar"></span> <span
 						class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="index.html">Strona główna</a>
+				<a class="navbar-brand" href="index.jsp">Strona główna</a>
 			</div>
 			<!-- Top Menu Items -->
 			<ul class="nav navbar-right top-nav">
@@ -138,8 +147,8 @@
 				<ul class="nav navbar-nav side-nav">
 					<li><a href="dodaj_zamowienie.jsp"><i
 							class="fa fa-fw fa-dashboard"></i>Zamów obiad </a></li>
-					<li><a href="admin_panel.jsp"><i
-							class="fa fa-fw fa-wrench"></i> Panel adinistratora</a></li>
+					<li><a href="PrivilegesServlet"><i
+							class="fa fa-fw fa-wrench"></i> Panel administratora</a></li>
 					<li><a href="javascript:;" data-toggle="collapse"
 						data-target="#demo"><i class="fa fa-fw fa-arrows-v"></i>
 							Dropdown <i class="fa fa-fw fa-caret-down"></i></a>
@@ -160,15 +169,57 @@
 				<div class="row">
 					<div class="col-lg-12">
 						<h1 class="page-header">
-							Zamów obiad <small></small>
+							Panel administratora<small></small>
 						</h1>
+
+						<div>
+							<form action="DeleteDishServlet" , method="post">
+								<br>
+								<h3>Usuń listę zamównień z poprzedniego dnia</h3>
+								<input type="submit" value="Usuń">
+							</form>
+							<br>
+						</div>
+
+						<form>
+							<h3>Dodaj pozycję do menu</h3>
+							Nazwa dania:<br> <input type="text" name="dish_name"><br>
+							Cena dania:<br> <input type="text" name="dish_cost"><br>
+							<input type="submit" value="Dodaj">
+						</form>
+						<br>
+
+
+						<form>
+							<h3>Usuń menu z porzedniego dnia</h3>
+							<input type="submit" value="Usuń">
+						</form>
+						<br>
+
+						<form>
+							<h3>Zmień status zamównienia</h3>
+							Id zamówienia:<br> <input type="text" name="dish_name"><br><br> 
+							Czy zapłacono?<br> <input type="radio" name="status"
+								value="T">Tak<br> <input type="radio"
+								name="status" value="N">Nie
+								
+							<br><br> <input type="submit" value="Zmień">
+						</form>
+
+
+
+
+
 						<ol class="breadcrumb">
 							<li><i class="fa fa-dashboard"></i> <a href="index.html">Dashboard</a>
 							</li>
 							<li class="active"><i class="fa fa-file"></i> Blank Page</li>
+
+
 						</ol>
 					</div>
 				</div>
+
 				<!-- /.row -->
 
 			</div>

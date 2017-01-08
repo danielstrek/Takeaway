@@ -145,18 +145,10 @@
 			<!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
 			<div class="collapse navbar-collapse navbar-ex1-collapse">
 				<ul class="nav navbar-nav side-nav">
-					<li><a href="restauracja_zamow.html"><i
-							class="fa fa-fw fa-dashboard"></i> Zamów obiad</a></li>
 					<li><a href="dodaj_zamowienie.jsp"><i
-							class="fa fa-fw fa-dashboard"></i> Dodaj nowe zamówienie </a></li>
-					<li><a href="dodaj_restauracje.html"><i
-							class="fa fa-fw fa-dashboard"></i> Dodaj restaurację</a></li>
-					<li><a href="realizowane_zamowienia.html"><i
-							class="fa fa-fw fa-dashboard"></i> Realizowane zamówienia</a></li>
-
-
-					<li><a href="edytuj_konto.html"><i
-							class="fa fa-fw fa-wrench"></i> Edytuj konto</a></li>
+							class="fa fa-fw fa-dashboard"></i>Zamów obiad </a></li>
+					<li><a href="PrivilegesServlet"><i
+							class="fa fa-fw fa-wrench"></i> Panel administratora</a></li>
 					<li><a href="javascript:;" data-toggle="collapse"
 						data-target="#demo"><i class="fa fa-fw fa-arrows-v"></i>
 							Dropdown <i class="fa fa-fw fa-caret-down"></i></a>
@@ -164,10 +156,6 @@
 							<li><a href="#">Dropdown Item</a></li>
 							<li><a href="#">Dropdown Item</a></li>
 						</ul></li>
-					<li class="active"><a href="blank-page.html"><i
-							class="fa fa-fw fa-file"></i> Blank Page</a></li>
-					<li><a href="index-rtl.html"><i
-							class="fa fa-fw fa-dashboard"></i> RTL Dashboard</a></li>
 				</ul>
 			</div>
 			<!-- /.navbar-collapse -->
@@ -184,11 +172,11 @@
 							Zamów obiad <small></small>
 						</h1>
 						<form action="AddOrderServlet" , method="post">
-
-							Wpisz nazwę z menu: <br> <input type="text" name="dish_name"><br>
-							Wpisz koszt dania z menu: <br> <input type="text"
-								name="dish_cost"><br> <input type="submit"
-								value="Dodaj zamówienie">
+							Wpisz nazwę restauracji: <br> <input type="text"
+								name="restaurant_name"><br> Wpisz nazwę z menu: <br>
+							<input type="text" name="dish_name"><br> Wpisz koszt
+							dania z menu: <br> <input type="text" name="dish_cost">
+							<br> <input type="submit" value="Dodaj zamówienie">
 						</form>
 
 
