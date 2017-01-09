@@ -9,12 +9,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.websocket.Session;
 
 import com.ai.takeaway.dao.DishDAO;
+import com.ai.takeaway.dao.MenuDAO;
 import com.ai.takeaway.dao.OrderDAO;
 import com.ai.takeaway.dao.RestaurantDAO;
 import com.ai.takeaway.dao.UserDAO;
 import com.ai.takeaway.model.Dish;
+import com.ai.takeaway.model.Menu;
 import com.ai.takeaway.model.Order;
 import com.ai.takeaway.model.Restaurant;
 import com.ai.takeaway.model.User;
@@ -47,6 +50,7 @@ public class LoginServlet extends HttpServlet {
 				getRestaurant(session);
 				getOrder(session);
 				getDish(session, user);
+				getMenu(session);
 				// response.sendRedirect("RestaurantServlet");
 				response.sendRedirect("index.jsp");
 			} else {
@@ -99,6 +103,12 @@ public class LoginServlet extends HttpServlet {
 
 		}
 
+	}
+	
+	private void getMenu(HttpSession session){
+		MenuDAO menuDAO = new MenuDAO();
+		List <Menu> menuList = menuDAO.read();
+		session.setAttribute("menuList", menuList);
 	}
 
 }

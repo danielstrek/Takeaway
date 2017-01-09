@@ -181,7 +181,7 @@
 							<br>
 						</div>
 
-						<form>
+						<form action="MenuAddServlet" method="post">
 							<h3>Dodaj pozycję do menu</h3>
 							Nazwa dania:<br> <input type="text" name="dish_name"><br>
 							Cena dania:<br> <input type="text" name="dish_cost"><br>
@@ -190,7 +190,7 @@
 						<br>
 
 
-						<form>
+						<form action="MenuServlet" method="post">
 							<h3>Usuń menu z porzedniego dnia</h3>
 							<input type="submit" value="Usuń">
 						</form>

@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ page
-	import="com.ai.takeaway.model.User, java.util.List, com.ai.takeaway.model.Restaurant, com.ai.takeaway.model.Order, com.ai.takeaway.model.Dish"%>
+	import="com.ai.takeaway.model.User, java.util.List, com.ai.takeaway.model.Restaurant, com.ai.takeaway.model.Order, com.ai.takeaway.model.Dish, com.ai.takeaway.model.Menu"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -170,8 +170,8 @@
 				<div class="row">
 					<div class="col-lg-12">
 						<h1 class="page-header">Strona główna</h1>
-						
-						
+
+
 						<div>
 							<%
 								User user = (User) request.getSession().getAttribute("user");
@@ -185,6 +185,30 @@
 								}
 							%>
 						</div>
+
+						<h2>Menu na dziś:</h2>
+						<table style="width: 70%" border="1">
+							<tr>
+								<th>ID:</th>
+								<th>Nazwa dania</th>
+								<th>Cena dania:</th>
+								
+							</tr>
+							<%
+								List<Menu> menuList = (List<Menu>) request.getSession().getAttribute("menuList");
+								for (Menu menu : menuList) {
+							%>
+
+							<tr>
+								<td><%=menu.getMenu_id()%></td>
+								<td><%=menu.getMenu_value()%></td>
+								<td><%=menu.getCost()%></td>
+							</tr>
+							<%
+								}
+							%>
+						</table>
+
 
 
 
@@ -217,6 +241,9 @@
 								}
 							%>
 						</table>
+
+
+
 
 
 						<ol class="breadcrumb">
