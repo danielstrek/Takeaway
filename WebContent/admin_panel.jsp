@@ -189,23 +189,47 @@
 						</form>
 						<br>
 
-
 						<form action="MenuServlet" method="post">
 							<h3>Usuń menu z porzedniego dnia</h3>
 							<input type="submit" value="Usuń">
 						</form>
 						<br>
 
-						<form>
-							<h3>Zmień status zamównienia</h3>
-							Id zamówienia:<br> <input type="text" name="dish_name"><br><br> 
+
+						<h3>Zmień status zamównienia</h3>
+						<table style="width: 70%" border="1">
+							<tr>
+								<th>ID zamówienia</th>
+								<th>Czy zapłacono?</th>
+								<th>Nazwa dania</th>
+								<th>Cena (zł):</th>
+								<th>ID zamawiającego:</th>
+							</tr>
+							<%
+								List<Dish> dishList = (List<Dish>) request.getSession().getAttribute("dishList");
+								for (Dish dish : dishList) {
+							%>
+
+							<tr>
+								<td><%=dish.getDish_id()%></td>
+								<td><%=dish.getDish_paid() %></td>
+								<td><%=dish.getDish_name()%></td>
+								<td><%=dish.getDish_cost()%></td>
+								<td><%=dish.getDish_user_id()%></td>
+							</tr>
+							<%
+								}
+							%>
+						</table>
+						<br>
+						<form action="SetDishStateServlet" method="post">
+							Id zamówienia:<br> <input type="text" name="dish_id"><br><br> 
 							Czy zapłacono?<br> <input type="radio" name="status"
 								value="T">Tak<br> <input type="radio"
 								name="status" value="N">Nie
 								
 							<br><br> <input type="submit" value="Zmień">
 						</form>
-
 
 
 

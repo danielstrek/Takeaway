@@ -15,6 +15,8 @@ public class DishDAO {
 	private final static String CREATE = "insert into  dish(dish_name, dish_cost, dish_paid,dish_paid_money, dish_user_id, dish_order_id) values(?, ?, ?, ?, ?, ?);";
 	private final static String READ = "SELECT * FROM dish ;";
 	private final static String READ1 = "SELECT * FROM dish where dish_user_id =?;";
+	private final static String READ2 = "SELEct * from DISH WHERE dish_id =?;";
+    private final static String UPDATE = "update dish set dish_paid=? where dish_id =?;";
 
 	private final static String DELETE = "delete from dish;";
 
@@ -37,6 +39,7 @@ public class DishDAO {
 				resultDish.setDish_paid(resultSet.getString("dish_paid"));
 				resultDish.setDish_paid_money(resultSet.getFloat("dish_paid_money"));
 				resultDish.setDish_user_id(resultSet.getInt("dish_user_id"));
+				resultDish.setDish_id(resultSet.getInt("dish_id"));
 
 				dishList.add(resultDish);
 			}
@@ -70,6 +73,7 @@ public class DishDAO {
 				resultDish.setDish_paid(resultSet.getString("dish_paid"));
 				resultDish.setDish_paid_money(resultSet.getFloat("dish_paid_money"));
 				resultDish.setDish_user_id(resultSet.getInt("dish_user_id"));
+				resultDish.setDish_id(resultSet.getInt("dish_id"));
 				dishList.add(resultDish);
 
 			}
@@ -81,6 +85,67 @@ public class DishDAO {
 		}
 		return null;
 	}
+	
+	
+	
+	
+	public Dish readDish(int dish_id) {
+		Connection conn = null;
+		PreparedStatement prepStmt = null;
+		ResultSet resultSet = null;
+		Dish resultDish = null;
+		try {
+			conn = ConnectionProvider.getConnection();
+			prepStmt = conn.prepareStatement(READ2);
+			prepStmt.setInt(1, dish_id);
+
+			resultSet = prepStmt.executeQuery();
+			
+			while (resultSet.next()) {
+				resultDish = new Dish();
+				resultDish.setDish_name(resultSet.getString("dish_name"));
+				resultDish.setDish_order_id(resultSet.getInt("dish_order_id"));
+				resultDish.setDish_cost(resultSet.getFloat("dish_cost"));
+				resultDish.setDish_paid(resultSet.getString("dish_paid"));
+				resultDish.setDish_paid_money(resultSet.getFloat("dish_paid_money"));
+				resultDish.setDish_user_id(resultSet.getInt("dish_user_id"));
+				resultDish.setDish_id(resultSet.getInt("dish_id"));
+
+			}
+			return resultDish;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			releaseResources(prepStmt, resultSet, conn);
+		}
+		return null;
+	}
+
+	
+	public int update(int dish_id, String dish_paid) {
+		Connection conn = null;
+		PreparedStatement prepStmt = null;
+		ResultSet resultSet = null;
+		try {
+			conn = ConnectionProvider.getConnection();
+			prepStmt = conn.prepareStatement(UPDATE);
+			prepStmt.setString(1, dish_paid);
+			prepStmt.setInt(2, dish_id);
+
+
+			int result = prepStmt.executeUpdate();
+			return result;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			releaseResources(prepStmt, resultSet, conn);
+		}
+		return 0;
+	}
+
+
+	
+	
 
 
 	// private final static String CREATE = "insert into dish(dish_name,

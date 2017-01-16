@@ -215,12 +215,11 @@
 						<h2>Lista zamówionych dań:</h2>
 						<table style="width: 70%" border="1">
 							<tr>
+								<th>ID zamówienia</th>
+								<th>Czy zapłacono?</th>
 								<th>Nazwa dania</th>
 								<th>Cena (zł):</th>
-								<th>Czy zapłacono?:</th>
-								<th>Wpłacona kwota:</th>
 								<th>ID zamawiającego:</th>
-								<th>ID zamówienia:</th>
 							</tr>
 							<%
 								List<Dish> dishList = (List<Dish>) request.getSession().getAttribute("dishList");
@@ -228,12 +227,11 @@
 							%>
 
 							<tr>
+								<td><%=dish.getDish_id()%></td>
+								<td><%=dish.getDish_paid() %></td>
 								<td><%=dish.getDish_name()%></td>
 								<td><%=dish.getDish_cost()%></td>
-								<td><%=dish.getDish_paid()%></td>
-								<td><%=dish.getDish_paid_money()%></td>
 								<td><%=dish.getDish_user_id()%></td>
-								<td><%=dish.getDish_order_id()%></td>
 
 
 							</tr>
